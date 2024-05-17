@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobCandidateAPI", "JobCandidateAPI\JobCandidateAPI.csproj", "{ECBE702E-FF16-4BB9-8489-521FFF3F8161}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobCandidateAPI.Contracts", "JobCandidateAPI.Contracts\JobCandidateAPI.Contracts.csproj", "{E6E1A9D1-6AD8-4BD9-A644-D17798045C28}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{815F439A-3F25-4CAB-8B98-C483966B352D}"
+	ProjectSection(SolutionItems) = preProject
+		Api.md = Api.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Request", "Request", "{FC543F1C-844A-4E0F-8AEA-688F335EDA89}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECBE702E-FF16-4BB9-8489-521FFF3F8161}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECBE702E-FF16-4BB9-8489-521FFF3F8161}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECBE702E-FF16-4BB9-8489-521FFF3F8161}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECBE702E-FF16-4BB9-8489-521FFF3F8161}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6E1A9D1-6AD8-4BD9-A644-D17798045C28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6E1A9D1-6AD8-4BD9-A644-D17798045C28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6E1A9D1-6AD8-4BD9-A644-D17798045C28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6E1A9D1-6AD8-4BD9-A644-D17798045C28}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21878415-21FD-42C0-9D82-F48B6801017A}
+	EndGlobalSection
+EndGlobal
