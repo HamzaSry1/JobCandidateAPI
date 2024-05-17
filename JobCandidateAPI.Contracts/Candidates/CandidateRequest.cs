@@ -1,13 +1,14 @@
 ﻿namespace JobCandidateAPI.Contracts.Candidates
 {
-    public record CandidateRequest(
-        string FirstName,
-        string LastName,
-        string PhoneNumber,
-        string Email,
-        string PreferredCallTime,
-        string LinkedIn_Profile_Url,
-        string Github_Profile_Url,
-        string Comment
-    );
+    public class CandidateRequest
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+        public string PreferredCallTime { get; set; }
+        public string LinkedIn_Profile_Url { get; set; }
+        public string Github_Profile_Url { get; set; }
+        public string Commen { get; set; }
+    };
 }

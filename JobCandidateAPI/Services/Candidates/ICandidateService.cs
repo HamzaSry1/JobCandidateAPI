@@ -1,6 +1,8 @@
-﻿namespace JobCandidateAPI.Services.Candidates
+﻿using JobCandidateAPI.Repository.Candidates;
+
+namespace JobCandidateAPI.Services.Candidates
 {
-    public interface ICandidateService
+    public interface ICandidateService : ICandidateRepository
     {
     }
 }
