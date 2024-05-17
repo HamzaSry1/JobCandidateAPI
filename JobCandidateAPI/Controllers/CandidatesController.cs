@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JobCandidateAPI.Services.Candidates;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JobCandidateAPI.Controllers
 {
@@ -6,5 +7,12 @@ namespace JobCandidateAPI.Controllers
     [Route("api/[controller]")]
     public class CandidatesController : ControllerBase
     {
+        private readonly ICandidateService service;
     }
+
+
+    #region CRUD
+
+    #endregion CRUD
+
 }
