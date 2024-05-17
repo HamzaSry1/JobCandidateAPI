@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JobCandidateAPI.Repository.Candidates
 {
-    public abstract class CandidateRepository : ICandidateRepository
+    public class CandidateRepository : ICandidateRepository
     {
         private readonly AppDbContext dbContext;
         public CandidateRepository(AppDbContext context) => dbContext = context;
@@ -17,21 +17,28 @@ namespace JobCandidateAPI.Repository.Candidates
             await dbContext.SaveChangesAsync();
             return result.Entity;
         }
-
         public virtual async Task<Candidate> UpdateAsync(Candidate candidate)
         {
-            dbContext.Entry(candidate).State = EntityState.Modified;
-            await dbContext.SaveChangesAsync();
-            return candidate;
-        }
+            var existingCandidate = await GetByEmailAsync(candidate.Email);
 
+            if (existingCandidate != null)
+            {
+                // Update the existing candidate entity with the new values
+                dbContext.Entry(existingCandidate).CurrentValues.SetValues(candidate);
+                await dbContext.SaveChangesAsync();
+                return existingCandidate;
+            }
+            else
+            {
+                return null;
+            }
+        }
         public virtual async Task<Candidate> DeleteAsync(Candidate candidate)
         {
             var result = dbContext.Remove(candidate);
             await dbContext.SaveChangesAsync();
             return result.Entity;
         }
-
         public virtual async Task<Candidate> DeleteAsync(string email)
         {
             var data = await GetByEmailAsync(email);
@@ -41,13 +48,11 @@ namespace JobCandidateAPI.Repository.Candidates
 
             return null;
         }
-
         public virtual async Task<Candidate> GetByEmailAsync(string email)
         {
             return await dbContext.Candidates
                 .FirstOrDefaultAsync(c => c.Email == email);
         }
-
         public virtual async Task<PaginationResponse> GetAllAsync(PaginationRequest pagination)
         {
             var query = dbContext.Candidates.AsQueryable();

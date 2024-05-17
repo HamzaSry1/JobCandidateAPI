@@ -1,110 +1,265 @@
 # Job Candidate API
 
 - [Job Candidate API](#job-candidate-api)
-  - [Create Candidate](#create-candidate)
+  - [Get All Candidates](#get-all-async)
+    - [Get All Candidates Request](#get-all-candidates-request)
+    - [Get All Candidates Response](#get-all-candidates-response)
+  - [Get Candidate by Email](#get-by-emailasyncemail)
+    - [Get Candidate by Email Request](#get-candidate-by-email-request)
+    - [Get Candidate by Email Response](#get-candidate-by-email-response)
+  - [Create Candidate](#createasync)
     - [Create Candidate Request](#create-candidate-request)
     - [Create Candidate Response](#create-candidate-response)
-  - [Update Candidate](#update-candidate)
+  - [Update Candidate](#updateasync)
     - [Update Candidate Request](#update-candidate-request)
     - [Update Candidate Response](#update-candidate-response)
+  - [Delete Candidate](#deleteasyncemail)
+    - [Delete Candidate Request](#delete-candidate-request)
+    - [Delete Candidate Response](#delete-candidate-response)
 
-## Create Candidate
+## Get All Candidates
 
-### Create Candidate Request
+### Get All Candidates Request
 
-```js
-POST /candidates/create
+```
+POST /candidates/getAllAsync
 ```
 
-```json
+```
 {
-    "firstName": "Hamza",
-    "lastName": "SRAIDI",
-    "phoneNumber": "+212601053319",
-    "email": "hamzasraidi08@gmail.com",
-    "preferredCallTime": "2024-05-17T12:00:00",
-    "linkedIn_Profile_Url": "https://www.linkedin.com/in/hamzasraidi/",
-    "github_Profile_Url": "https://github.com/HamzaSry1",
-    "comment": "Job Application for Junior .NET Developer at Sigma Software"
+    "PageNumber": 1,
+    "PageSize": 10,
+    "OrderBy": "firstName",
+    "OrderByDirection": "asc"
 }
 ```
 
-### Create Candidate Response
 
-```json
+###  Get All Candidates Response
+
+```
 {
-    "Status": 201,
-    "Data": {
+    "Data": [
+        {
         "firstName": "Hamza",
         "lastName": "SRAIDI",
-        "phoneNumber": "+212601053319",
-        "email": "hamzasraidi08@gmail.com",
+        "phoneNumber": "+2120601053319",
+        "email": "Hamzasraidi08@gmail.com",
         "preferredCallTime": "2024-05-17T12:00:00",
         "linkedIn_Profile_Url": "https://www.linkedin.com/in/hamzasraidi/",
         "github_Profile_Url": "https://github.com/HamzaSry1",
-        "comment": "Job Application for Junior .NET Developer at Sigma Software"
+        "comment": "Job application for junior .NET developer at Sigma Software "
+        },
+    ],
+    "RecordTotal": 1,
+    "RecordFiltered": 1
+}
+```
+
+
+## Get Candidate by Email
+## Get Candidate by Email Request
+
+```
+GET /candidates/getByEmailAsync/{email}
+```
+
+## Get Candidate by Email Response
+
+```
+{
+    "status": 200,
+    "message": "Candidate found.",
+    "data": {
+        "firstName": "Hamza",
+        "lastName": "Sraidi",
+        "phoneNumber": "+2120601053319",
+        "email": "Hamzasraidi08@gmail.com",
+        "preferredCallTime": "2024-05-17T16:45:52.485Z",
+        "linkedIn_Profile_Url": "https://www.linkedin.com/in/hamzasraidi/",
+        "github_Profile_Url": "https://github.com/HamzaSry1",
+        "comment": "Job application for junior .NET developer at Sigma Software"
     },
-    "Message": "Candidate information has been added successfully."
+    "validationErrors": null
 }
 ```
 
 or 
 
-```json
+```
+{
+    "status": 404,
+    "message": "Not Found: Candidate information with provided email does not exist."
+}
+```
+
+## Create Candidate
+## Create Candidate Request
+
+```
+POST /candidates/createAsync
+```
+
+```
+{
+    "firstName": "Hamza",
+    "lastName": "Sraidi",
+    "phoneNumber": "+2120601053319",
+    "email": "Hamzasraidi08@gmail.com",
+    "preferredCallTime": "2024-05-17T16:45:52.485Z",
+    "linkedIn_Profile_Url": "https://www.linkedin.com/in/hamzasraidi/",
+    "github_Profile_Url": "https://github.com/HamzaSry1",
+    "comment": "Job application for junior .NET developer at Sigma Software"
+}
+```
+
+## Create Candidate Response
+
+```
+{
+  "message": "Candidate information has been added successfully.",
+  "status": 201,
+  "data": {
+    "firstName": "Hamza",
+    "lastName": "Sraidi",
+    "phoneNumber": "+2120601053319",
+    "email": "Hamzasraidi08@gmail.com",
+    "preferredCallTime": "2024-05-17T16:45:52.485Z",
+    "linkedIn_Profile_Url": "https://www.linkedin.com/in/hamzasraidi/",
+    "github_Profile_Url": "https://github.com/HamzaSry1",
+    "comment": "Job application for junior .NET developer at Sigma Software"
+  },
+  "validationErrors": null
+}
+```
+
+or
+
+```
 {
     "Status": 400,
-    "Data": null,
     "Message": "Bad Request: Invalid input data. Please check your request parameters."
 }
 ```
 
+or 
 
-## Update Candidate
-
-### Update Candidate Request
-
-```js
-PUT /candidates/update
 ```
-
-```json
 {
-    "firstName": "Hamza Edited",
-    "lastName": "SRAIDI Edited",
-    "phoneNumber": "+212601053319",
-    "email": "hamzasraidi08@gmail.com",
-    "preferredCallTime": "2024-05-17T12:00:00",
-    "linkedIn_Profile_Url": "https://www.linkedin.com/in/hamzasraidi/",
-    "github_Profile_Url": "https://github.com/HamzaSry1",
-    "comment": "Job application for Junior .NET Developer at Sigma Software"
+  "status": 400,
+  "validationErrors": [
+    {
+      "propertyName": "Email",
+      "errorMessage": "Email must not be empty."
+    },
+    {
+      "propertyName": "Email",
+      "errorMessage": "Invalid email format."
+    }
+  ]
 }
 ```
 
-### Update Candidate Response
+## Update Candidate
+## Update Candidate Request
 
-```json
+```
+PUT /candidates/updateAsync
+```
+
+```
 {
-    "Status": 200,
-    "Data": {
-        "firstName": "Hamza Edited",
-        "lastName": "SRAIDI Edited",
-        "phoneNumber": "+212601053319",
-        "email": "hamzasraidi08@gmail.com",
-        "preferredCallTime": "2024-05-17T12:00:00",
-        "linkedIn_Profile_Url": "https://www.linkedin.com/in/hamzasraidi/",
-        "github_Profile_Url": "https://github.com/HamzaSry1",
-        "comment": "Job application for Junior .NET Developer at Sigma Software"
-    },
-    "Message": "Candidate information has been updated successfully."
+    "firstName": "Hamza  EDITED",
+    "lastName": "Sraidi EDITED",
+    "phoneNumber": "+2120601053319",
+    "email": "Hamzasraidi08@gmail.com",
+    "preferredCallTime": "2024-05-17T16:45:52.485Z",
+    "linkedIn_Profile_Url": "https://www.linkedin.com/in/hamzasraidi/",
+    "github_Profile_Url": "https://github.com/HamzaSry1",
+    "comment": "Job application for junior .NET developer at Sigma Software EDITED"
+}
+```
+
+## Update Candidate Response
+
+```
+{
+  "message": "Candidate information has been updated successfully.",
+  "status": 200,
+  "data": {
+    "firstName": "Hamza  EDITED",
+    "lastName": "Sraidi EDITED",
+    "phoneNumber": "+2120601053319",
+    "email": "Hamzasraidi08@gmail.com",
+    "preferredCallTime": "2024-05-17T16:45:52.485Z",
+    "linkedIn_Profile_Url": "https://www.linkedin.com/in/hamzasraidi/",
+    "github_Profile_Url": "https://github.com/HamzaSry1",
+    "comment": "Job application for junior .NET developer at Sigma Software EDITED"
+  },
+  "validationErrors": null
+}
+```
+
+or
+
+```
+{
+    "status": 404,
+    "message": "Not Found: Candidate information with provided email does not exist."
 }
 ```
 
 or 
 
-```json
+```
 {
-    "Status": 404,
-    "Data": null,
-    "Message": "Not Found: Candidate information with provided email does not exist."
+  "status": 400,
+  "validationErrors": [
+    {
+      "propertyName": "Email",
+      "errorMessage": "Email must not be empty."
+    },
+    {
+      "propertyName": "Email",
+      "errorMessage": "Invalid email format."
+    }
+  ]
 }
 ```
+
+## Delete Candidate
+## Delete Candidate Request
+
+```
+DELETE /candidates/deleteAsync/{email}
+```
+
+
+## Delete Candidate Response
+
+```
+{
+    "status": 200,
+    "message": "Candidate information has been deleted successfully.",
+    "data": {
+        "firstName": "Hamza",
+        "lastName": "SRAIDI",
+        "phoneNumber": "+2120601053319",
+        "email": "Hamzasraidi08@gmail.com",
+        "preferredCallTime": "2024-05-17T12:00:00",
+        "linkedIn_Profile_Url": "https://www.linkedin.com/in/hamzasraidi/",
+        "github_Profile_Url": "https://github.com/HamzaSry1",
+        "comment": "Job application for junior .NET developer at Sigma Software "
+    },
+    "validationErrors": null
+}
+```
+
+or 
+
+```
+{
+    "status": 404,
+    "message": "Not Found: Candidate information with provided email does not exist."
+```
+}

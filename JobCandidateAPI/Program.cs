@@ -5,29 +5,43 @@ using JobCandidateAPI.Services.Candidates;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+//Registration services
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    //Registration services
-
-    builder.Services.AddControllers();
-
-    builder.Services.AddDbContext<AppDbContext>(options =>
+    var connectionString = builder.Configuration.GetConnectionString("SqlCnx");
+    if (string.IsNullOrEmpty(connectionString))
     {
-        var connectionString = builder.Configuration.GetConnectionString("SqlCnx");
-        if (string.IsNullOrEmpty(connectionString))
-        {
-            throw new Exception(Messages.SqlConnectionException);
-        }
+        throw new Exception(Messages.SqlConnectionException);
+    }
 
-        options.UseSqlServer(connectionString);
-    });
+    options.UseSqlServer(connectionString);
+});
 
-    builder.Services.AddScoped<ICandidateRepository, CandidateRepository>();
-    builder.Services.AddScoped<ICandidateService, CandidateService>();
-}
+
+// Register AutoMapper
+builder.Services.AddAutoMapper(typeof(Program));
+
+// Register repositories and services
+builder.Services.AddScoped<ICandidateRepository, CandidateRepository>();
+builder.Services.AddScoped<ICandidateService, CandidateService>();
+
 
 var app = builder.Build();
+
+// Configure the HTTP request pipeline
+if (app.Environment.IsDevelopment())
 {
-    app.UseHttpsRedirection();
-    app.MapControllers();
-    app.Run();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+app.UseRouting();
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
